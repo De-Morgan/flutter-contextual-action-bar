@@ -80,7 +80,7 @@ class _WhatsappState extends State<Whatsapp> {
                 },
                 onSelected: (String value) {
                   if (value == "all") {
-                    ActionMode.addAll(context, users);
+                    ActionMode.addItems(context, users);
                   }
                 },
               );

@@ -10,7 +10,7 @@ class ActionMode {
     itemController.addItem(item);
   }
 
-  static void addAll<T>(BuildContext context, List<T> items) {
+  static void addItems<T>(BuildContext context, List<T> items) {
     final itemController =
         Provider.of<ItemsController<T>>(context, listen: false);
     items.forEach((item) => itemController.addItem(item));
