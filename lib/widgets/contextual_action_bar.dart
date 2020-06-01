@@ -1,3 +1,4 @@
+import 'package:contextualactionbar/actions/action_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -11,8 +12,8 @@ class ContextualAppBar<T> extends StatefulWidget
     implements PreferredSizeWidget {
   ContextualAppBar({
     Key key,
-    this.counterBuilder,
-    this.contextualActions,
+    @required this.counterBuilder,
+    @required this.contextualActions,
     this.flexibleSpace,
     this.bottom,
     this.elevation,
@@ -181,6 +182,10 @@ class ContextualAppBar<T> extends StatefulWidget
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
         return contextualActions == null || contextualActions.length < 2;
+      case TargetPlatform.linux:
+        break;
+      case TargetPlatform.windows:
+        break;
     }
     return null;
   }
@@ -261,9 +266,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     final Widget toolbar = NavigationToolbar(
       leading: IconButton(
           icon: Icon(widget.closeIcon ?? Icons.close),
-          onPressed: () =>
-              Provider.of<ItemsController<T>>(context, listen: false)
-                  .disableActionMode()),
+          onPressed: () => ActionMode.disableActionMode<T>(context)),
       middle: Consumer<ItemsController<T>>(
         builder:
             (BuildContext context, ItemsController<T> value, Widget child) {
@@ -321,7 +324,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
       );
     }
 
-    // The padding applies to the toolbar and tabbar, not the flexible space.
+    // The padding applies to the toolbar and tab bar, not the flexible space.
     if (widget.primary) {
       appBar = SafeArea(
         top: true,

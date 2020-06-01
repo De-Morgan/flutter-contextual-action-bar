@@ -1,3 +1,4 @@
+import 'package:contextualactionbar/actions/action_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,7 @@ class ContextualAction<T> extends StatelessWidget {
         return InkWell(
           onTap: () {
             itemsHandler(value.items);
-            Provider.of<ItemsController<T>>(context, listen: false)
-                .disableActionMode();
+            ActionMode.disableActionMode<T>(context);
           },
           child: child,
         );

@@ -9,4 +9,16 @@ class ActionMode {
         Provider.of<ItemsController<T>>(context, listen: false);
     itemController.addItem(item);
   }
+
+  static void addAll<T>(BuildContext context, List<T> items) {
+    final itemController =
+        Provider.of<ItemsController<T>>(context, listen: false);
+    items.forEach((item) => itemController.addItem(item));
+  }
+
+  static void disableActionMode<T>(
+    BuildContext context,
+  ) {
+    Provider.of<ItemsController<T>>(context, listen: false).disableActionMode();
+  }
 }

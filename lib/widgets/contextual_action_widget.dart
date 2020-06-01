@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/items_controller.dart';
-import '../actions/action_mode.dart';
 
 class ContextualActionWidget<T> extends StatelessWidget {
   final T data;
@@ -13,14 +12,19 @@ class ContextualActionWidget<T> extends StatelessWidget {
   /// The color for the child when selected
   final Color selectedColor;
 
-  /// The widget to be displayed on top the child widget when selected
+  /// The widget to be displayed on top of the child widget when selected
   final Widget selectedWidget;
+
+  /// The widget to be displayed on top of
+  /// the child widget when not selected
+  final Widget unselectedWidget;
 
   const ContextualActionWidget(
       {Key key,
       @required this.data,
       @required this.child,
       this.selectedWidget,
+      this.unselectedWidget,
       this.selectedColor})
       : assert(data != null),
         assert(child != null),
@@ -35,16 +39,22 @@ class ContextualActionWidget<T> extends StatelessWidget {
       onTap: () => itemController.toggleItem(data),
       child: AbsorbPointer(
         absorbing: itemController.actionModeEnable,
-        child: Stack(
-          children: <Widget>[
-            Container(
-                decoration: BoxDecoration(
-                    color: isItemAdded
-                        ? selectedColor ?? Theme.of(context).splashColor
-                        : Colors.transparent),
-                child: child),
-            if (isItemAdded && selectedWidget != null) selectedWidget
-          ],
+        child: IntrinsicHeight(
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Container(
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      color: isItemAdded
+                          ? selectedColor ?? Theme.of(context).splashColor
+                          : Colors.transparent),
+                  child: child),
+              if (isItemAdded && selectedWidget != null) selectedWidget,
+              if (itemController.actionModeEnable && unselectedWidget != null)
+                unselectedWidget
+            ],
+          ),
         ),
       ),
     );

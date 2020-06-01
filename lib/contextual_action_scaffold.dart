@@ -44,7 +44,7 @@ class ContextualActionScaffold<T> extends StatelessWidget {
   const ContextualActionScaffold({
     Key key,
     this.appBar,
-    this.contextualAppBar,
+    @required this.contextualAppBar,
     this.body,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
