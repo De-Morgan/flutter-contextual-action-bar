@@ -2,7 +2,6 @@ import 'package:contextualactionbar/contextualactionbar.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-
 class Whatsapp extends StatefulWidget {
   Whatsapp({Key key}) : super(key: key);
 
@@ -12,7 +11,7 @@ class Whatsapp extends StatefulWidget {
 
 class _WhatsappState extends State<Whatsapp> {
   Text _title(int count) {
-    return Text("$count");
+    return Text("$count Selected");
   }
 
   @override
@@ -26,20 +25,32 @@ class _WhatsappState extends State<Whatsapp> {
               onPressed: () {
                 Scaffold.of(context).showSnackBar(
                     SnackBar(content: Text("Long press on any of the items")));
-              }),
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) => [
-              PopupMenuItem(
-                child: Text("Refresh"),
-                value: "refresh",
-              ),
-            ],
-            onSelected: (String val) {
-              if (val == "refresh") {
-                users = _users();
-                setState(() {});
+              })
+          ,
+          Builder(
+              builder: (context) {
+                return PopupMenuButton(
+                  itemBuilder: (BuildContext context) =>
+                  [
+                    PopupMenuItem(
+                      child: Text("Refresh"),
+                      value: "refresh",
+                    ),
+                    PopupMenuItem(
+                      child: Text("Select All"),
+                      value: "select",
+                    )
+                  ],
+                  onSelected: (String val) {
+                    if (val == "refresh") {
+                      users = _users();
+                      setState(() {});
+                    } else if (val == "select") {
+                      ActionMode.addItems(context, users);
+                    }
+                  },
+                );
               }
-            },
           )
         ],
       ),
@@ -118,10 +129,10 @@ class WhatsappBody extends StatelessWidget {
                     Scaffold.of(context).showSnackBar(SnackBar(
                       content: Text("$user"),
                     ));
-
                   },
                   leading: CircleAvatar(
-                    child: Icon(Icons.person),
+                    child: IconButton(
+                      icon: Icon(Icons.person), onPressed: () {},),
                     radius: 25,
                   ),
                   title: Text("${user.name}"),
