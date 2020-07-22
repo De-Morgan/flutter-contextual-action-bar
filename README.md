@@ -99,7 +99,10 @@ This contextual action bar workaround does not support zero item in the `ActionM
 
 - Use the `ActionMode.addItems<?>` to add a list of items. 
 
-- Use the `ActionMode.disableActionMode<?>` to disable and deselect all selected items.
+- Use the `ActionMode.disable<?>` to disable and deselect all selected items.
+
+- Use the `ActionMode.actionModeEnabledStream<?>` to emit true or false depending on if the Action mode is enabled or disabled respectively.
+
 
  *Note: In most cases, you won't need to use `ActionMode.disableActionMode<?>` because the package already do that for you where needed.*
 
