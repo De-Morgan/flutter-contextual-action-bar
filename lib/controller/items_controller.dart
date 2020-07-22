@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 class ItemsController<T> extends ChangeNotifier {
@@ -6,7 +8,9 @@ class ItemsController<T> extends ChangeNotifier {
   bool get actionModeEnable => _actionModeEnabled;
   List<T> get items => _items.toList();
   bool isItemPresent(T item) => _items.contains(item);
-
+  StreamController<bool> _isActionModeEnableController = StreamController.broadcast();
+  StreamSink<bool> get _isActionModeEnableSink =>_isActionModeEnableController.sink;
+  Stream<bool> get isActionModeEnabled => _isActionModeEnableController.stream;
   void emptySelection() {
     _items.clear();
   }
@@ -14,11 +18,13 @@ class ItemsController<T> extends ChangeNotifier {
   void enableActionMode(T item) {
     _items.add(item);
     _actionModeEnabled = true;
+    _isActionModeEnableSink.add(true);
     notifyListeners();
   }
 
   void disableActionMode() {
     _actionModeEnabled = false;
+    _isActionModeEnableSink.add(false);
     emptySelection();
     notifyListeners();
   }

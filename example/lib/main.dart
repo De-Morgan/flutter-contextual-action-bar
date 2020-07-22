@@ -1,4 +1,3 @@
-import 'package:example/status_saver.dart';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -16,20 +15,22 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.teal),
         // for Scaffold.of(context)
-        // home: Scaffold(body: Whatsapp()),
-        home: Scaffold(
-          body: StreamBuilder<PermissionStatus>(
-              stream: (StoragePermissionService()..requestPermission())
-                  .storagePermission,
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data.isGranted) {
-                  return StatusSaver();
-                }
-                return Container(
-                  alignment: FractionalOffset.center,
-                  child: const CircularProgressIndicator(),
-                );
-              }),
-        ));
+         home: Scaffold(body: Whatsapp()),
+//        home: Scaffold(
+//          body: StreamBuilder<PermissionStatus>(
+//              stream: (StoragePermissionService()..requestPermission())
+//                  .storagePermission,
+//              builder: (context, snapshot) {
+//                if (snapshot.hasData && snapshot.data.isGranted) {
+//                  return StatusSaver();
+//                }
+//                return Container(
+//                  alignment: FractionalOffset.center,
+//                  child: const CircularProgressIndicator(),
+//                );
+//              }),
+//        )
+
+    );
   }
 }

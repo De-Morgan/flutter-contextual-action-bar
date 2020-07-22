@@ -266,7 +266,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     final Widget toolbar = NavigationToolbar(
       leading: IconButton(
           icon: Icon(widget.closeIcon ?? Icons.close),
-          onPressed: () => ActionMode.disableActionMode<T>(context)),
+          onPressed: () => ActionMode.disable<T>(context)),
       middle: Consumer<ItemsController<T>>(
         builder:
             (BuildContext context, ItemsController<T> value, Widget child) {

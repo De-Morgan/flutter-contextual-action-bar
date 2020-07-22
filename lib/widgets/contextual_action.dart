@@ -19,7 +19,7 @@ class ContextualAction<T> extends StatelessWidget {
         return InkWell(
           onTap: () {
             itemsHandler(value.items);
-            ActionMode.disableActionMode<T>(context);
+            ActionMode.disable<T>(context);
           },
           child: child,
         );

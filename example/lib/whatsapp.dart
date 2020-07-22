@@ -2,6 +2,7 @@ import 'package:contextualactionbar/contextualactionbar.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+
 class Whatsapp extends StatefulWidget {
   Whatsapp({Key key}) : super(key: key);
 
@@ -88,66 +89,66 @@ class _WhatsappState extends State<Whatsapp> {
           ),
         ],
       ),
-      body: Builder(builder: (context) {
-        return Center(
-          child: ListView(
-            children: <Widget>[
-              ...users.map((user) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ContextualActionWidget(
-                        data: user,
-                        child: ListTile(
-                          onTap: () {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("$user"),
-                            ));
-                          },
-                          leading: CircleAvatar(
-                            child: Icon(Icons.person),
-                            radius: 25,
-                          ),
-                          title: Text("${user.name}"),
-                          subtitle: Text("${user.lastMessageSent}"),
-                        ),
-                        selectedWidget: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 50, top: 20),
-                              child: Icon(
-                                Icons.check_circle,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Divider(),
-                    ],
-                  ))
-            ],
-          ),
-        );
-      }),
+      body: WhatsappBody(),
     );
   }
 }
 
-List<User> users = _users();
-List<User> _users() => [
-      User(name: "Morgan"),
-      User(name: "John"),
-      User(name: "Mary"),
-      User(name: "Johnson"),
-      User(name: "Smith"),
-      User(name: "Grace"),
-      User(name: "Jesse"),
-      User(name: "Williams"),
-      User(name: "Joseph"),
-      User(name: "Michael"),
-    ];
 
-// User must have value equality
+
+
+
+class WhatsappBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // A Stream to listen to when the action mode is enabled or disabled
+    ActionMode.actionModeEnabledStream<User>(context).listen((bool isActionModeEnabled){
+      print("This action mode is enabled $isActionModeEnabled");
+    });
+    return Center(
+      child: ListView(
+        children: <Widget>[
+          ...users.map((user) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ContextualActionWidget(
+                data: user,
+                child: ListTile(
+                  onTap: () {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("$user"),
+                    ));
+
+                  },
+                  leading: CircleAvatar(
+                    child: Icon(Icons.person),
+                    radius: 25,
+                  ),
+                  title: Text("${user.name}"),
+                  subtitle: Text("${user.lastMessageSent}"),
+                ),
+                selectedWidget: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50, top: 20),
+                      child: Icon(
+                        Icons.check_circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+            ],
+          ))
+        ],
+      ),
+    );
+  }
+}
+
+// User must be unique
 class User extends Equatable {
   final String name;
   final String lastMessageSent;
@@ -158,3 +159,17 @@ class User extends Equatable {
   @override
   String toString() => name;
 }
+
+List<User> users = _users();
+List<User> _users() => [
+  User(name: "Morgan"),
+  User(name: "John"),
+  User(name: "Mary"),
+  User(name: "Johnson"),
+  User(name: "Smith"),
+  User(name: "Grace"),
+  User(name: "Jesse"),
+  User(name: "Williams"),
+  User(name: "Joseph"),
+  User(name: "Michael"),
+];
