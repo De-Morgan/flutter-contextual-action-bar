@@ -101,10 +101,10 @@ This contextual action bar workaround does not support zero item in the `ActionM
 
 - Use the `ActionMode.disable<?>` to disable and deselect all selected items.
 
-- Use the `ActionMode.actionModeEnabledStream<?>` to emit true or false depending on if the Action mode is enabled or disabled respectively.
+- Use the `ActionMode.enabledStream<?>` to emit true or false depending on if the Action mode is enabled or disabled respectively.
 
 
- *Note: In most cases, you won't need to use `ActionMode.disableActionMode<?>` because the package already do that for you where needed.*
+ *Note: In most cases, you won't need to use `ActionMode.disable<?>` because the package already do that for you where needed.*
 
  
  ***Study complete examples at [example page](https://github.com/De-Morgan/flutter-contextual-action-bar/blob/master/example/lib/main.dart)***
