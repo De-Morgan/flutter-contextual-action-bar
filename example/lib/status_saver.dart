@@ -31,7 +31,6 @@ class StatusSaver extends StatelessWidget {
           return Text("$count");
         },
         contextualActions: [
-
           ContextualAction(
             itemsHandler: (List<String> items) {
               showSnackbar(context, "${items.length} images saved");

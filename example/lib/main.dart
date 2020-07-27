@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-import 'permission_service.dart';
 import 'whatsapp.dart';
 
 void main() => runApp(MyApp());
@@ -11,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Contextual Action Bar Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.teal),
-        // for Scaffold.of(context)
-         home: Scaffold(body: Whatsapp()),
+      title: 'Contextual Action Bar Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.teal),
+      // for Scaffold.of(context)
+      home: Scaffold(body: Whatsapp()),
 //        home: Scaffold(
 //          body: StreamBuilder<PermissionStatus>(
 //              stream: (StoragePermissionService()..requestPermission())
@@ -30,7 +27,6 @@ class MyApp extends StatelessWidget {
 //                );
 //              }),
 //        )
-
     );
   }
 }

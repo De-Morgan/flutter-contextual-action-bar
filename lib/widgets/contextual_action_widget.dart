@@ -51,7 +51,9 @@ class ContextualActionWidget<T> extends StatelessWidget {
                           : Colors.transparent),
                   child: child),
               if (isItemAdded && selectedWidget != null) selectedWidget,
-              if (itemController.actionModeEnable && unselectedWidget != null)
+              if (!isItemAdded &&
+                  itemController.actionModeEnable &&
+                  unselectedWidget != null)
                 unselectedWidget
             ],
           ),

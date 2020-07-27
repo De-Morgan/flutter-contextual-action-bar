@@ -111,8 +111,7 @@ class WhatsappBody extends StatelessWidget {
     return Center(
       child: ListView(
         children: <Widget>[
-          ...users.map((user) =>
-              Column(
+          ...users.map((user) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ContextualActionWidget(
@@ -144,6 +143,7 @@ class WhatsappBody extends StatelessWidget {
                         ),
                       ],
                     ),
+                    unselectedWidget: Icon(Icons.add),
                   ),
                   Divider(),
                 ],
