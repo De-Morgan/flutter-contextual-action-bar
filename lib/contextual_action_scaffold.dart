@@ -72,12 +72,12 @@ class ContextualActionScaffold<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ItemsController<T>>(
       create: (BuildContext context) => ItemsController<T>(),
-      child: Builder(builder: (context) {
+      builder: (BuildContext context, Widget child) {
         return Scaffold(
           appBar: Provider.of<ItemsController<T>>(context).actionModeEnable
               ? contextualAppBar
               : appBar,
-          body: body,
+          body: child,
           floatingActionButton: floatingActionButton,
           floatingActionButtonLocation: floatingActionButtonLocation,
           floatingActionButtonAnimator: floatingActionButtonAnimator,
@@ -95,7 +95,8 @@ class ContextualActionScaffold<T> extends StatelessWidget {
           drawerScrimColor: drawerScrimColor,
           drawerEdgeDragWidth: drawerEdgeDragWidth,
         );
-      }),
+      },
+      child: body,
     );
   }
 }

@@ -24,7 +24,8 @@ class ActionMode {
   }
 
   /// This steam emits true or false depending on if the Action mode is enabled or disabled respectively
-  static Stream<bool> actionModeEnabledStream<T>(BuildContext context){
-   return Provider.of<ItemsController<T>>(context).isActionModeEnabled;
+  static Stream<bool> enabledStream<T>(BuildContext context) {
+    return Provider.of<ItemsController<T>>(context, listen: false)
+        .isActionModeEnabled;
   }
 }

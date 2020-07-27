@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 class ItemsController<T> extends ChangeNotifier {
   final Set<T> _items = {};
@@ -60,5 +60,12 @@ class ItemsController<T> extends ChangeNotifier {
       disableActionMode();
     }
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _isActionModeEnableController.close();
+    _isActionModeEnableSink.close();
+    super.dispose();
   }
 }
