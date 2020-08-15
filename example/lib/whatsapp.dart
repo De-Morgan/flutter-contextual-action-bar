@@ -3,100 +3,87 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class Whatsapp extends StatefulWidget {
-  Whatsapp({Key key}) : super(key: key);
-
   @override
   _WhatsappState createState() => _WhatsappState();
 }
 
-class _WhatsappState extends State<Whatsapp> {
-  Text _title(int count) {
-    return Text("$count Selected");
+class _WhatsappState extends State<Whatsapp> with ContextualMixin {
+  @override
+  Widget build(BuildContext context) {
+    return ContextualActionScaffold<User>(
+      contextualAppBar: contexualActionBar,
+      appBar: AppBar(
+        title: Text("Whatsapp"),
+      ),
+      body: WhatsappBody(),
+    );
+  }
+}
+
+class SliverWhatsappExample extends StatefulWidget {
+  @override
+  _SliverWhatsappExampleState createState() => _SliverWhatsappExampleState();
+}
+
+class _SliverWhatsappExampleState extends State<SliverWhatsappExample>
+    with ContextualMixin, SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ContextualActionScaffold<User>(
-      appBar: AppBar(
-        title: Text("WhatsApp"),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text("Long press on any of the items")));
-              }),
-          Builder(builder: (context) {
-            return PopupMenuButton(
-              itemBuilder: (BuildContext context) => [
-                PopupMenuItem(
-                  child: Text("Refresh"),
-                  value: "refresh",
-                ),
-                PopupMenuItem(
-                  child: Text("Select All"),
-                  value: "select",
-                )
-              ],
-              onSelected: (String val) {
-                if (val == "refresh") {
-                  users = _users();
-                  setState(() {});
-                } else if (val == "select") {
-                  ActionMode.addItems(context, users);
-                }
-              },
-            );
-          })
+    return ContextualScrollView<User>(
+      contextualAppBar: contexualActionBar,
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
+        SliverAppBar(
+          title: Text("Whatsapp"),
+        ),
+        SliverPersistentHeader(
+            pinned: true,
+            delegate:
+                _SliverAppBarDelegate(TabBar(controller: _tabController, tabs: [
+              Tab(
+                text: "Chat",
+              ),
+              Tab(
+                text: "Status",
+              ),
+              Tab(
+                text: "Calls",
+              ),
+            ])))
+      ],
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          WhatsappBody(),
+          Status(),
+          Calls(),
         ],
       ),
-      contextualAppBar: ContextualAppBar(
-        counterBuilder: _title,
-        closeIcon: Icons.arrow_back,
-        contextualActions: [
-          ContextualAction(
-            itemsHandler: (List<User> items) async {
-              await Future.delayed(const Duration(milliseconds: 200), () {
-                users.removeWhere((user) => items.contains(user));
-                users = users;
-                setState(() {});
-              });
-            },
-            child: Icon(Icons.delete),
-          ),
-          ContextualAction(
-            itemsHandler: (List<User> items) {
-              items.forEach((user) {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("$user saved"),
-                ));
-              });
-            },
-            child: Icon(Icons.save),
-          ),
-          ContextualAction(
-            itemsHandler: (List<User> _) async {},
-            child: Builder(builder: (context) {
-              return PopupMenuButton(
-                itemBuilder: (BuildContext context) {
-                  return [
-                    PopupMenuItem(
-                      child: Text("Select all"),
-                      value: "all",
-                    ),
-                  ];
-                },
-                onSelected: (String value) {
-                  if (value == "all") {
-                    ActionMode.addItems(context, users);
-                  }
-                },
-              );
-            }),
-          ),
-        ],
-      ),
-      body: WhatsappBody(),
+    );
+  }
+}
+
+class Status extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("Status"),
+    );
+  }
+}
+
+class Calls extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text("Calls"),
     );
   }
 }
@@ -104,10 +91,10 @@ class _WhatsappState extends State<Whatsapp> {
 class WhatsappBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // A Stream to listen to when the action mode is enabled or disabled
-    ActionMode.enabledStream<User>(context).listen((bool isActionModeEnabled) {
-      print("This action mode is enabled $isActionModeEnabled");
+    ActionMode.enabledStream<User>(context).listen((event) {
+      print("Action mode is enabled $event");
     });
+
     return Center(
       child: ListView(
         children: <Widget>[
@@ -143,7 +130,6 @@ class WhatsappBody extends StatelessWidget {
                         ),
                       ],
                     ),
-                    unselectedWidget: Icon(Icons.add),
                   ),
                   Divider(),
                 ],
@@ -151,6 +137,32 @@ class WhatsappBody extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate(this._tabBar);
+
+  final TabBar _tabBar;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset,
+      bool overlapsContent) {
+    return new Container(
+      color: Colors.teal,
+      child: _tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
 
@@ -182,4 +194,67 @@ List<User> _users() =>
       User(name: "Williams"),
       User(name: "Joseph"),
       User(name: "Michael"),
+      User(name: "Henry"),
+      User(name: "Jordan"),
+      User(name: "Michelle"),
     ];
+
+extension ContextExtenstion on BuildContext {
+  void showSnackBar(String message) =>
+      Scaffold.of(this).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+}
+
+mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
+  ContextualAppBar<User> get contexualActionBar =>
+      ContextualAppBar(
+        elevation: 0.0,
+        counterBuilder: (int itemsCount) => Text("$itemsCount"),
+        contextualActions: [
+          ContextualAction(
+            itemsHandler: (List<User> items) =>
+                items.forEach((user) => context.showSnackBar(user.name)),
+            child: Icon(Icons.save),
+          ),
+          ContextualAction(
+            itemsHandler: (List<User> items) =>
+                items.forEach((user) {
+                  users.remove(user);
+                  setState(() {});
+                }),
+            child: Icon(Icons.delete),
+          ),
+          ContextualAction(
+            itemsHandler: (List<User> _) {},
+            child: Builder(builder: (context) {
+              return PopupMenuButton<String>(
+                onSelected: (val) {
+                  switch (val) {
+                    case "select":
+                      ActionMode.addItems(context, users);
+                      setState(() {});
+                      break;
+                    case "disable":
+                      ActionMode.disable<User>(context);
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                      child: Text("Select all"),
+                      value: "select",
+                    ),
+                    PopupMenuItem(
+                      child: Text("Deselect all"),
+                      value: "disable",
+                    ),
+                  ];
+                },
+              );
+            }),
+          )
+        ],
+      );
+}
