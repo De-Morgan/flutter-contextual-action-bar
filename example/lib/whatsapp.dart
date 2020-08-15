@@ -11,7 +11,7 @@ class _WhatsappState extends State<Whatsapp> with ContextualMixin {
   @override
   Widget build(BuildContext context) {
     return ContextualActionScaffold<User>(
-      contextualAppBar: contexualActionBar,
+      contextualAppBar: contextualAppBar,
       appBar: AppBar(
         title: Text("Whatsapp"),
       ),
@@ -38,7 +38,7 @@ class _SliverWhatsappExampleState extends State<SliverWhatsappExample>
   @override
   Widget build(BuildContext context) {
     return ContextualScrollView<User>(
-      contextualAppBar: contexualActionBar,
+      contextualAppBar: contextualAppBar,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [
         SliverAppBar(
           title: Text("Whatsapp"),
@@ -207,7 +207,7 @@ extension ContextExtenstion on BuildContext {
 }
 
 mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
-  ContextualAppBar<User> get contexualActionBar =>
+  ContextualAppBar<User> get contextualAppBar =>
       ContextualAppBar(
         elevation: 0.0,
         counterBuilder: (int itemsCount) => Text("$itemsCount"),
