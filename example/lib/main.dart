@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.teal),
       // for Scaffold.of(context)
-      home: Scaffold(body: Whatsapp()),
+      //home: Scaffold(body: Whatsapp()),
+      home: Scaffold(
+        body: SliverWhatsappExample(),
+      ),
 //        home: Scaffold(
 //          body: StreamBuilder<PermissionStatus>(
 //              stream: (StoragePermissionService()..requestPermission())
