@@ -1,7 +1,7 @@
 # Flutter contextual action bar(CAB)
 
 A reliable contextual action bar workaround for flutter.
-![](https://raw.githubusercontent.com/De-Morgan/flutter-contextual-action-bar/master/screenshots/whatsapp.gif)
+![](https://raw.githubusercontent.com/De-Morgan/flutter-contextual-action-bar/master/screenshots/whatsApp.gif)
 
 
 
@@ -126,7 +126,7 @@ This contextual action bar workaround does not support zero item in the `ActionM
 
  
  ***Study complete examples at [example page](https://github.com/De-Morgan/flutter-contextual-action-bar/blob/master/example/lib/main.dart)***
-  **If you like the project, don't forget to star ⭐️**
+ **If you like the project, don't forget to star ⭐️**
 
  ### Other Packages authored by me
  
