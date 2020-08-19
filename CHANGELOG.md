@@ -12,3 +12,6 @@
 
 ## 2.0.0 - August 15, 2020
 - Added support for silvers
+## 2.1.0 - August 20, 2020
+- renamed `ContextualActionScaffold` to `ContextualScaffold`
+- added support for multiple `ContextualScaffold`

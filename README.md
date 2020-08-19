@@ -1,7 +1,7 @@
 # Flutter contextual action bar(CAB)
 
 A reliable contextual action bar workaround for flutter.
-![](https://raw.githubusercontent.com/De-Morgan/flutter-contextual-action-bar/master/screenshots/snapshot.png)
+![](https://raw.githubusercontent.com/De-Morgan/flutter-contextual-action-bar/master/screenshots/whatsapp.gif)
 
 
 
@@ -14,24 +14,26 @@ Until CAB is natively supported, this package should provide you with an elegant
 
 ## How it works
 
-- `ContextualActionScaffold` or `ContextualScrollView`(for slivers)
+- `ContextualScaffold` or `ContextualScrollView`(for slivers)
 - `ContextualAppBar`
 - `ContextualAction`
 - `ContextualActionWidget`
 
 
-## `ContextualActionScaffold<?>`
+## `ContextualScaffold<?>`
 
-The `ContextualActionScaffold<?>` is similar to the normal material `Scaffold` except that it also takes
+The `ContextualScaffold<?>` is similar to the normal material `Scaffold` except that it also takes
 a required `contextualAppBar`.
 
 ```
-ContextualActionScaffold<?>(
+ContextualScaffold<?>(
       contextualAppBar: ContextualAppBar(),
       appBar: AppBar(),
       body: Body(),
     )
  ```
+You can provide multiple `ContextualScaffold` as needed
+
  
  ## `ContextualScrollView<?>`
  
@@ -45,7 +47,7 @@ ContextualActionScaffold<?>(
    )
     
    ```
-The ContextualScrollView is used to add support for silvers check the `SliverWhatsappExample` for complete usage.
+The ContextualScrollView is used to add first class support for silvers although `ContextualScaffold` can also be used with `NestedScrollview` check the `WhatsApp` example for complete usage.
 
 
 ## `ContextualAppBar<?>`
