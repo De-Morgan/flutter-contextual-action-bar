@@ -126,7 +126,8 @@ This contextual action bar workaround does not support zero item in the `ActionM
 
  
  ***Study complete examples at [example page](https://github.com/De-Morgan/flutter-contextual-action-bar/blob/master/example/lib/main.dart)***
- 
+  **If you like the project, don't forget to star ⭐️**
+
  ### Other Packages authored by me
  
  - [loadinglistview](https://pub.dev/packages/loadinglistview#-readme-tab-)
