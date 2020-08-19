@@ -125,7 +125,7 @@ This contextual action bar workaround does not support zero item in the `ActionM
  *Note: In most cases, you won't need to use `ActionMode.disable<?>` because the package already do that for you where needed.*
 
  
- ***Study complete examples at [example page](https://github.com/De-Morgan/flutter-contextual-action-bar/blob/master/example/lib/main.dart)***
+ ***Study complete examples at [example page](https://github.com/De-Morgan/flutter-contextual-action-bar/blob/master/example/lib/main.dart)***.
  **If you like the project, don't forget to star ⭐️**
 
  ### Other Packages authored by me
