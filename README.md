@@ -1,6 +1,5 @@
 # Flutter contextual action bar(CAB)
 
-A reliable contextual action bar workaround for flutter.
 ![](https://raw.githubusercontent.com/De-Morgan/flutter-contextual-action-bar/master/screenshots/whatsApp.gif)
 
 
