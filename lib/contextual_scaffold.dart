@@ -75,38 +75,28 @@ class ContextualScaffold<T> extends StatelessWidget {
       builder: (BuildContext context, Widget child) {
         bool isActionModeEnable() =>
             Provider.of<ItemsController<T>>(context).actionModeEnable;
-        return Stack(
-          children: [
-            Positioned.fill(
-              child: Scaffold(
-                appBar: appBar,
-                body: child,
-                floatingActionButton: floatingActionButton,
-                floatingActionButtonLocation: floatingActionButtonLocation,
-                floatingActionButtonAnimator: floatingActionButtonAnimator,
-                persistentFooterButtons: persistentFooterButtons,
-                drawer: drawer,
-                endDrawer: endDrawer,
-                bottomNavigationBar: bottomNavigationBar,
-                bottomSheet: bottomSheet,
-                backgroundColor: backgroundColor,
-                resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-                primary: primary,
-                drawerDragStartBehavior: drawerDragStartBehavior,
-                extendBody: extendBody,
-                extendBodyBehindAppBar: extendBody,
-                drawerScrimColor: drawerScrimColor,
-                drawerEdgeDragWidth: drawerEdgeDragWidth,
-              ),
-            ),
-            if (isActionModeEnable())
-              Positioned(
-                top: 0,
-                right: 0,
-                left: 0,
-                child: contextualAppBar,
-              ),
-          ],
+        return Scaffold(
+          appBar: PreferredSize(
+              preferredSize: const Size(double.infinity, kToolbarHeight),
+              child: isActionModeEnable() ? contextualAppBar : appBar,
+          ),
+          body: child,
+          floatingActionButton: floatingActionButton,
+          floatingActionButtonLocation: floatingActionButtonLocation,
+          floatingActionButtonAnimator: floatingActionButtonAnimator,
+          persistentFooterButtons: persistentFooterButtons,
+          drawer: drawer,
+          endDrawer: endDrawer,
+          bottomNavigationBar: bottomNavigationBar,
+          bottomSheet: bottomSheet,
+          backgroundColor: backgroundColor,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          primary: primary,
+          drawerDragStartBehavior: drawerDragStartBehavior,
+          extendBody: extendBody,
+          extendBodyBehindAppBar: extendBody,
+          drawerScrimColor: drawerScrimColor,
+          drawerEdgeDragWidth: drawerEdgeDragWidth,
         );
       },
       child: body,
