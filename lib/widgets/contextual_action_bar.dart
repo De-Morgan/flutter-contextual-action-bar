@@ -207,7 +207,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     assert(debugCheckHasMaterialLocalizations(context));
     final ThemeData theme = Theme.of(context);
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
-    final ScaffoldState scaffold = Scaffold.of(context, nullOk: true);
+    final ScaffoldState scaffold = Scaffold.of(context);
 
     final bool hasEndDrawer = scaffold?.hasEndDrawer ?? false;
 
