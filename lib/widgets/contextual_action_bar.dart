@@ -1,9 +1,11 @@
 import 'package:contextualactionbar/actions/action_mode.dart';
+import 'package:contextualactionbar/widgets/contextual_close_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../contextualactionbar.dart';
 import 'contextual_action.dart';
 import '../controller/items_controller.dart';
 import '../typedef/counter_builder.dart';
@@ -14,6 +16,7 @@ class ContextualAppBar<T> extends StatefulWidget
     Key key,
     @required this.counterBuilder,
     @required this.contextualActions,
+    this.leading,
     this.flexibleSpace,
     this.bottom,
     this.elevation,
@@ -50,6 +53,9 @@ class ContextualAppBar<T> extends StatefulWidget
   /// For less common operations, consider using a [PopupMenuButton] as the
   /// last action.
   final List<ContextualAction<T>> contextualActions;
+
+  /// Action to take on cancel
+  final ContextualCloseAction<T> leading;
 
   /// This widget is stacked behind the toolbar and the tab bar. It's height will
   /// be the same as the app bar's overall height.
@@ -264,9 +270,12 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     }
 
     final Widget toolbar = NavigationToolbar(
-      leading: IconButton(
-          icon: Icon(widget.closeIcon ?? Icons.close),
-          onPressed: () => ActionMode.disable<T>(context)),
+      leading: widget.leading ??
+          IconButton(
+            icon: Icon(widget.closeIcon ?? Icons.close),
+            onPressed: () {
+              ActionMode.disable<T>(context);
+      }),
       middle: Consumer<ItemsController<T>>(
         builder:
             (BuildContext context, ItemsController<T> value, Widget child) {
