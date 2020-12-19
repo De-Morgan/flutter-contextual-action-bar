@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/items_controller.dart';
@@ -76,10 +77,7 @@ class ContextualScaffold<T> extends StatelessWidget {
         bool isActionModeEnable() =>
             Provider.of<ItemsController<T>>(context).actionModeEnable;
         return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: const Size(double.infinity, kToolbarHeight),
-              child: isActionModeEnable() ? contextualAppBar : appBar,
-          ),
+          appBar: isActionModeEnable() ? contextualAppBar : appBar,
           body: child,
           floatingActionButton: floatingActionButton,
           floatingActionButtonLocation: floatingActionButtonLocation,
