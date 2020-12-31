@@ -11,6 +11,8 @@ class ContextualScaffold<T> extends StatelessWidget {
 
   final bool extendBodyBehindAppBar;
 
+  final bool externalProvider;
+
   final PreferredSizeWidget appBar;
   final ContextualAppBar<T> contextualAppBar;
 
@@ -46,6 +48,7 @@ class ContextualScaffold<T> extends StatelessWidget {
     Key key,
     this.appBar,
     @required this.contextualAppBar,
+    this.externalProvider = false,
     this.body,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
@@ -71,11 +74,22 @@ class ContextualScaffold<T> extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ItemsController<T>>(
-      create: (BuildContext context) => ItemsController<T>(),
-      builder: (BuildContext context, Widget child) {
-        bool isActionModeEnable() =>
-            Provider.of<ItemsController<T>>(context).actionModeEnable;
+    if (externalProvider) {
+      return buildScaffold(context);
+    } else {
+      return ChangeNotifierProvider<ItemsController<T>>(
+          create: (BuildContext context) => ItemsController<T>(),
+          builder: (BuildContext context, Widget child) {
+            return buildScaffold(context);
+          }
+      );
+    }
+  }
+
+  Widget buildScaffold(BuildContext context) {
+    return Consumer<ItemsController<T>>(
+      builder: (context, itemsController, child) {
+        bool isActionModeEnable() => itemsController.actionModeEnable;
         return Scaffold(
           appBar: isActionModeEnable() ? contextualAppBar : appBar,
           body: child,
