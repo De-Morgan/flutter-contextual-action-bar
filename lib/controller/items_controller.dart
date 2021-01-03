@@ -10,6 +10,10 @@ class ItemsController<T> extends ChangeNotifier {
 
   List<T> get items => _items.toList();
 
+  final bool allowZeroItems;
+  
+  ItemsController({this.allowZeroItems = false});
+
   bool isItemPresent(T item) => _items.contains(item);
   StreamController<bool> _isActionModeEnableController =
       StreamController.broadcast();
@@ -34,6 +38,17 @@ class ItemsController<T> extends ChangeNotifier {
     _modifyActionMode(true);
   }
 
+  void enableActionModeList(Iterable<T> items) {
+    _items.addAll(items);
+    _modifyActionMode(true);
+  }
+
+  void enableActionModeZeroItems() {
+    if (allowZeroItems) {
+      _modifyActionMode(true);
+    }
+  }
+
   void disableActionMode() {
     _modifyActionMode(false);
     emptySelection();
@@ -56,7 +71,7 @@ class ItemsController<T> extends ChangeNotifier {
     if (!_actionModeEnabled) {
       _modifyActionMode(true);
     }
-    if (_items.isEmpty) {
+    if (_items.isEmpty && !allowZeroItems) {
       disableActionMode();
     }
     notifyListeners();

@@ -13,6 +13,8 @@ class ContextualScaffold<T> extends StatelessWidget {
 
   final bool externalProvider;
 
+  final bool allowZeroItems;
+
   final PreferredSizeWidget appBar;
   final ContextualAppBar<T> contextualAppBar;
 
@@ -49,6 +51,7 @@ class ContextualScaffold<T> extends StatelessWidget {
     this.appBar,
     @required this.contextualAppBar,
     this.externalProvider = false,
+    this.allowZeroItems = false,
     this.body,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
@@ -78,7 +81,7 @@ class ContextualScaffold<T> extends StatelessWidget {
       return buildScaffold(context);
     } else {
       return ChangeNotifierProvider<ItemsController<T>>(
-          create: (BuildContext context) => ItemsController<T>(),
+          create: (BuildContext context) => ItemsController<T>(allowZeroItems: allowZeroItems),
           builder: (BuildContext context, Widget child) {
             return buildScaffold(context);
           }

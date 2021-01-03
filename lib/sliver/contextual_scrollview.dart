@@ -22,6 +22,7 @@ class ContextualScrollView<T> extends StatefulWidget {
     this.scrollDirection = Axis.vertical,
     this.reverse = false,
     this.physics,
+    this.allowZeroItems = false,
     @required this.headerSliverBuilder,
     @required this.body,
     @required this.contextualAppBar,
@@ -59,6 +60,8 @@ class ContextualScrollView<T> extends StatefulWidget {
   ///
   /// Defaults to false.
   final bool reverse;
+
+  final bool allowZeroItems;
 
   /// How the scroll view should respond to user input.
   ///
@@ -277,7 +280,7 @@ class ContextualScrollViewState<T> extends State<ContextualScrollView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ItemsController<T>>(
-      create: (BuildContext context) => ItemsController<T>(),
+      create: (BuildContext context) => ItemsController<T>(allowZeroItems: widget.allowZeroItems),
       child: Builder(builder: (context) {
         bool isActionModeEnable() =>
             Provider.of<ItemsController<T>>(context).actionModeEnable;
