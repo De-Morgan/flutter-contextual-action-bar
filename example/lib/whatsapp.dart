@@ -28,7 +28,7 @@ class WhatsAppBody extends StatefulWidget {
 
 class _WhatsAppBodyState extends State<WhatsAppBody>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
   bool _isUserActionModeEnabled = false;
   bool _isCallActionModeEnabled = false;
 
@@ -37,10 +37,10 @@ class _WhatsAppBodyState extends State<WhatsAppBody>
     super.initState();
     _tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
-        if (_tabController.indexIsChanging && _isUserActionModeEnabled) {
+        if (_tabController!.indexIsChanging && _isUserActionModeEnabled) {
           ActionMode.disable<User>(context);
         }
-        if (_tabController.indexIsChanging && _isCallActionModeEnabled) {
+        if (_tabController!.indexIsChanging && _isCallActionModeEnabled) {
           ActionMode.disable<Call>(context);
         }
       });
@@ -54,7 +54,7 @@ class _WhatsAppBodyState extends State<WhatsAppBody>
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -272,7 +272,7 @@ class Call extends Equatable {
   final User friend;
   final String _callTime;
 
-  Call(this.friend, [String callTime])
+  Call(this.friend, [String? callTime])
       : _callTime = callTime ?? "August 20, 11:30AM";
 
   @override

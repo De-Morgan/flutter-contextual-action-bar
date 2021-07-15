@@ -10,41 +10,41 @@ class ContextualScaffold<T> extends StatelessWidget {
 
   final bool extendBodyBehindAppBar;
 
-  final PreferredSizeWidget appBar;
+  final PreferredSizeWidget? appBar;
   final ContextualAppBar<T> contextualAppBar;
 
-  final Widget body;
+  final Widget? body;
 
-  final Widget floatingActionButton;
+  final Widget? floatingActionButton;
 
-  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
 
-  final FloatingActionButtonAnimator floatingActionButtonAnimator;
+  final FloatingActionButtonAnimator? floatingActionButtonAnimator;
 
-  final List<Widget> persistentFooterButtons;
+  final List<Widget>? persistentFooterButtons;
 
-  final Widget drawer;
+  final Widget? drawer;
 
-  final Widget endDrawer;
+  final Widget? endDrawer;
 
-  final Color drawerScrimColor;
+  final Color? drawerScrimColor;
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
-  final Widget bottomNavigationBar;
+  final Widget? bottomNavigationBar;
 
-  final Widget bottomSheet;
+  final Widget? bottomSheet;
 
-  final bool resizeToAvoidBottomInset;
+  final bool? resizeToAvoidBottomInset;
 
   final bool primary;
-  final double drawerEdgeDragWidth;
+  final double? drawerEdgeDragWidth;
   final DragStartBehavior drawerDragStartBehavior;
 
   const ContextualScaffold({
-    Key key,
+    Key? key,
     this.appBar,
-    @required this.contextualAppBar,
+    required this.contextualAppBar,
     this.body,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
@@ -72,7 +72,7 @@ class ContextualScaffold<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ItemsController<T>>(
       create: (BuildContext context) => ItemsController<T>(),
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         bool isActionModeEnable() =>
             Provider.of<ItemsController<T>>(context).actionModeEnable;
         return Stack(
