@@ -110,8 +110,7 @@ class Calls extends StatelessWidget {
     return Center(
       child: ListView(
         children: <Widget>[
-          ...calls.map((call) =>
-              Column(
+          ...calls.map((call) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ContextualActionWidget(
@@ -131,7 +130,10 @@ class Calls extends StatelessWidget {
                       ),
                       title: Text("${call.friend.name}"),
                       subtitle: Text("${call._callTime}"),
-                      trailing: Icon(Icons.call, color: Colors.teal,),
+                      trailing: Icon(
+                        Icons.call,
+                        color: Colors.teal,
+                      ),
                     ),
                     selectedWidget: Row(
                       children: <Widget>[
@@ -164,8 +166,7 @@ class Chats extends StatelessWidget {
     return Center(
       child: ListView(
         children: <Widget>[
-          ...users.map((user) =>
-              Column(
+          ...users.map((user) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ContextualActionWidget(
@@ -219,8 +220,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset,
-      bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return new Container(
       color: Colors.teal,
       child: _tabBar,
@@ -249,8 +250,7 @@ class User extends Equatable {
 
 List<User> users = _users();
 
-List<User> _users() =>
-    [
+List<User> _users() => [
       User(name: "Morgan"),
       User(name: "John"),
       User(name: "Mary"),
@@ -283,18 +283,14 @@ List<Call> calls = _calls();
 
 List<Call> _calls() => _users().map((e) => Call(e)).toList();
 
-
 extension ContextExtenstion on BuildContext {
-  void showSnackBar(String message) =>
-      Scaffold.of(this).showSnackBar(SnackBar(
+  void showSnackBar(String message) => Scaffold.of(this).showSnackBar(SnackBar(
         content: Text(message),
       ));
 }
 
-
 mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
-  ContextualAppBar<User> get userContextualAppBar =>
-      ContextualAppBar(
+  ContextualAppBar<User> get userContextualAppBar => ContextualAppBar(
         elevation: 0.0,
         counterBuilder: (int itemsCount) => Text("$itemsCount"),
         closeIcon: Icons.arrow_back,
@@ -305,11 +301,10 @@ mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
             child: Icon(Icons.save),
           ),
           ContextualAction(
-            itemsHandler: (List<User> items) =>
-                items.forEach((user) {
-                  users.remove(user);
-                  setState(() {});
-                }),
+            itemsHandler: (List<User> items) => items.forEach((user) {
+              users.remove(user);
+              setState(() {});
+            }),
             child: Icon(Icons.delete),
           ),
           ContextualAction(
@@ -345,8 +340,7 @@ mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
         ],
       );
 
-  ContextualAppBar<Call> get callsContextualAppBar =>
-      ContextualAppBar(
+  ContextualAppBar<Call> get callsContextualAppBar => ContextualAppBar(
         elevation: 0.0,
         closeIcon: Icons.arrow_back,
         counterBuilder: (int itemsCount) => Text("$itemsCount"),
@@ -357,11 +351,10 @@ mixin ContextualMixin<Page extends StatefulWidget> on State<Page> {
             child: Icon(Icons.save),
           ),
           ContextualAction(
-            itemsHandler: (List<Call> items) =>
-                items.forEach((call) {
-                  calls.remove(call);
-                  setState(() {});
-                }),
+            itemsHandler: (List<Call> items) => items.forEach((call) {
+              calls.remove(call);
+              setState(() {});
+            }),
             child: Icon(Icons.delete),
           ),
           ContextualAction(
