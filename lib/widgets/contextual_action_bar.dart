@@ -4,16 +4,16 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'contextual_action.dart';
 import '../controller/items_controller.dart';
 import '../typedef/counter_builder.dart';
+import 'contextual_action.dart';
 
 class ContextualAppBar<T> extends StatefulWidget
     implements PreferredSizeWidget {
   ContextualAppBar({
-    Key key,
-    @required this.counterBuilder,
-    @required this.contextualActions,
+    Key? key,
+    required this.counterBuilder,
+    required this.contextualActions,
     this.flexibleSpace,
     this.bottom,
     this.elevation,
@@ -59,7 +59,7 @@ class ContextualAppBar<T> extends StatefulWidget
   /// changes the [ContextualAppBar]'s height when scrolled.
   ///
   /// Typically a [FlexibleSpaceBar]. See [FlexibleSpaceBar] for details.
-  final Widget flexibleSpace;
+  final Widget? flexibleSpace;
 
   /// This widget appears across the bottom of the app bar.
   ///
@@ -69,7 +69,7 @@ class ContextualAppBar<T> extends StatefulWidget
   /// See also:
   ///
   ///  * [PreferredSize], which can be used to give an arbitrary widget a preferred size.
-  final PreferredSizeWidget bottom;
+  final PreferredSizeWidget? bottom;
 
   /// The z-coordinate at which to place this app bar relative to its parent.
   ///
@@ -80,34 +80,34 @@ class ContextualAppBar<T> extends StatefulWidget
   /// If this property is null, then [ThemeData.appBarTheme.elevation] is used,
   /// if that is also null, the default value is 4, the appropriate elevation
   /// for app bars.
-  final double elevation;
+  final double? elevation;
 
   /// The material's shape as well its shadow.
   ///
   /// A shadow is only displayed if the [elevation] is greater than
   /// zero.
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
   /// The color to use for the app bar's material. Typically this should be set
   /// along with [brightness], [iconTheme], [textTheme].
   ///
   /// If this property is null, then [ThemeData.appBarTheme.color] is used,
   /// if that is also null, then [ThemeData.primaryColor] is used.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// The brightness of the app bar's material. Typically this is set along
   /// with [backgroundColor], [iconTheme], [textTheme].
   ///
   /// If this property is null, then [ThemeData.appBarTheme.brightness] is used,
   /// if that is also null, then [ThemeData.primaryColorBrightness] is used.
-  final Brightness brightness;
+  final Brightness? brightness;
 
   /// The color, opacity, and size to use for app bar icons. Typically this
   /// is set along with [backgroundColor], [brightness], [textTheme].
   ///
   /// If this property is null, then [ThemeData.appBarTheme.iconTheme] is used,
   /// if that is also null, then [ThemeData.primaryIconTheme] is used.
-  final IconThemeData iconTheme;
+  final IconThemeData? iconTheme;
 
   /// The color, opacity, and size to use for the icons that appear in the app
   /// bar's [contextualActions]. This should only be used when the [contextualActions] should be
@@ -116,14 +116,14 @@ class ContextualAppBar<T> extends StatefulWidget
   ///
   /// If this property is null, then [ThemeData.appBarTheme.actionsIconTheme] is
   /// used, if that is also null, then this falls back to [iconTheme].
-  final IconThemeData actionsIconTheme;
+  final IconThemeData? actionsIconTheme;
 
   /// The typographic styles to use for text in the app bar. Typically this is
   /// set along with [brightness] [backgroundColor], [iconTheme].
   ///
   /// If this property is null, then [ThemeData.appBarTheme.textTheme] is used,
   /// if that is also null, then [ThemeData.primaryTextTheme] is used.
-  final TextTheme textTheme;
+  final TextTheme? textTheme;
 
   /// Whether this app bar is being displayed at the top of the screen.
   ///
@@ -135,7 +135,7 @@ class ContextualAppBar<T> extends StatefulWidget
   /// Whether the title should be centered.
   ///
   /// Defaults to being adapted to the current [TargetPlatform].
-  final bool centerTitle;
+  final bool? centerTitle;
 
   /// The spacing around [counterBuilder] content on the horizontal axis. This spacing is
   /// applied even if there is no [leading] content or [contextualActions]. If you want
@@ -163,7 +163,7 @@ class ContextualAppBar<T> extends StatefulWidget
   final double bottomOpacity;
 
   /// Icon to use to close Action mode
-  final IconData closeIcon;
+  final IconData? closeIcon;
 
   /// A size whose height is the sum of [kToolbarHeight] and the [bottom] widget's
   /// preferred height.
@@ -172,7 +172,7 @@ class ContextualAppBar<T> extends StatefulWidget
   @override
   final Size preferredSize;
 
-  bool _getEffectiveCenterTitle(ThemeData theme) {
+  bool? _getEffectiveCenterTitle(ThemeData theme) {
     if (centerTitle != null) return centerTitle;
     assert(theme.platform != null);
     switch (theme.platform) {
@@ -207,19 +207,19 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     assert(debugCheckHasMaterialLocalizations(context));
     final ThemeData theme = Theme.of(context);
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
-    final ScaffoldState scaffold = Scaffold.of(context, nullOk: true);
+    final ScaffoldState scaffold = Scaffold.of(context);
 
-    final bool hasEndDrawer = scaffold?.hasEndDrawer ?? false;
+    final bool hasEndDrawer = scaffold.hasEndDrawer;
 
     IconThemeData overallIconTheme =
         widget.iconTheme ?? appBarTheme.iconTheme ?? theme.primaryIconTheme;
     IconThemeData actionsIconTheme = widget.actionsIconTheme ??
         appBarTheme.actionsIconTheme ??
         overallIconTheme;
-    TextStyle centerStyle = widget.textTheme?.headline6 ??
+    TextStyle? centerStyle = widget.textTheme?.headline6 ??
         appBarTheme.textTheme?.headline6 ??
         theme.primaryTextTheme.headline6;
-    TextStyle sideStyle = widget.textTheme?.bodyText2 ??
+    TextStyle? sideStyle = widget.textTheme?.bodyText2 ??
         appBarTheme.textTheme?.bodyText2 ??
         theme.primaryTextTheme.bodyText2;
 
@@ -228,18 +228,18 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
           const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
               .transform(widget.toolbarOpacity);
       if (centerStyle?.color != null)
-        centerStyle =
-            centerStyle.copyWith(color: centerStyle.color.withOpacity(opacity));
+        centerStyle = centerStyle!
+            .copyWith(color: centerStyle.color!.withOpacity(opacity));
       if (sideStyle?.color != null)
         sideStyle =
-            sideStyle.copyWith(color: sideStyle.color.withOpacity(opacity));
+            sideStyle!.copyWith(color: sideStyle.color!.withOpacity(opacity));
       overallIconTheme = overallIconTheme.copyWith(
           opacity: opacity * (overallIconTheme.opacity ?? 1.0));
       actionsIconTheme = actionsIconTheme.copyWith(
           opacity: opacity * (actionsIconTheme.opacity ?? 1.0));
     }
 
-    Widget actions;
+    Widget? actions;
     if (widget.contextualActions != null &&
         widget.contextualActions.isNotEmpty) {
       actions = Row(
@@ -269,9 +269,9 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
           onPressed: () => ActionMode.disable<T>(context)),
       middle: Consumer<ItemsController<T>>(
         builder:
-            (BuildContext context, ItemsController<T> value, Widget child) {
+            (BuildContext context, ItemsController<T> value, Widget? child) {
           return DefaultTextStyle(
-            style: centerStyle,
+            style: centerStyle!,
             softWrap: false,
             overflow: TextOverflow.ellipsis,
             child: Semantics(
@@ -284,7 +284,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
         },
       ),
       trailing: actions,
-      centerMiddle: widget._getEffectiveCenterTitle(theme),
+      centerMiddle: widget._getEffectiveCenterTitle(theme)!,
       middleSpacing: widget.titleSpacing,
     );
 
@@ -296,7 +296,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
         child: IconTheme.merge(
           data: overallIconTheme,
           child: DefaultTextStyle(
-            style: sideStyle,
+            style: sideStyle!,
             child: toolbar,
           ),
         ),
@@ -313,7 +313,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
             ),
           ),
           if (widget.bottomOpacity == 1.0)
-            widget.bottom
+            widget.bottom ?? Container()
           else
             Opacity(
               opacity: const Interval(0.25, 1.0, curve: Curves.fastOutSlowIn)
@@ -341,7 +341,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
       appBar = Stack(
         fit: StackFit.passthrough,
         children: <Widget>[
-          widget.flexibleSpace,
+          widget.flexibleSpace ?? Container(),
           appBar,
         ],
       );
@@ -374,7 +374,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
 }
 
 class _AppBarTitleBox extends SingleChildRenderObjectWidget {
-  const _AppBarTitleBox({Key key, @required Widget child})
+  const _AppBarTitleBox({Key? key, required Widget child})
       : assert(child != null),
         super(key: key, child: child);
 
@@ -394,8 +394,8 @@ class _AppBarTitleBox extends SingleChildRenderObjectWidget {
 
 class _RenderAppBarTitleBox extends RenderAligningShiftedBox {
   _RenderAppBarTitleBox({
-    RenderBox child,
-    TextDirection textDirection,
+    RenderBox? child,
+    TextDirection? textDirection,
   }) : super(
             child: child,
             alignment: Alignment.center,
@@ -405,8 +405,8 @@ class _RenderAppBarTitleBox extends RenderAligningShiftedBox {
   void performLayout() {
     final BoxConstraints innerConstraints =
         constraints.copyWith(maxHeight: double.infinity);
-    child.layout(innerConstraints, parentUsesSize: true);
-    size = constraints.constrain(child.size);
+    child!.layout(innerConstraints, parentUsesSize: true);
+    size = constraints.constrain(child!.size);
     alignChild();
   }
 }

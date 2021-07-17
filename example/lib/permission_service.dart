@@ -12,7 +12,6 @@ class StoragePermissionService {
   Future<void> requestPermission() async {
     final PermissionStatus permissionStatus = await Permission.storage.status;
     switch (permissionStatus) {
-      case PermissionStatus.undetermined:
       case PermissionStatus.denied:
         final PermissionStatus requestedStatus =
             await Permission.storage.request();
