@@ -28,14 +28,7 @@ class ContextualScrollView<T> extends StatefulWidget {
     this.dragStartBehavior = DragStartBehavior.start,
     this.floatHeaderSlivers = false,
     this.clipBehavior = Clip.hardEdge,
-  })  : assert(scrollDirection != null),
-        assert(contextualAppBar != null),
-        assert(headerSliverBuilder != null),
-        assert(reverse != null),
-        assert(body != null),
-        assert(floatHeaderSlivers != null),
-        assert(clipBehavior != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// An object that can be used to control the position to which the outer
   /// scroll view is scrolled.
@@ -125,10 +118,6 @@ class ContextualScrollView<T> extends StatefulWidget {
       BuildContext context) {
     final _InheritedNestedScrollView target = context
         .dependOnInheritedWidgetOfExactType<_InheritedNestedScrollView>()!;
-    assert(
-      target != null,
-      'NestedScrollView.sliverOverlapAbsorberHandleFor must be called with a context that contains a NestedScrollView.',
-    );
     return target.state._absorberHandle;
   }
 
@@ -369,9 +358,7 @@ class _InheritedNestedScrollView extends InheritedWidget {
     Key? key,
     required this.state,
     required Widget child,
-  })  : assert(state != null),
-        assert(child != null),
-        super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   final ContextualScrollViewState state;
 
@@ -476,7 +463,6 @@ class _NestedScrollCoordinator
 
   bool get hasScrolledBody {
     for (final _NestedScrollPosition position in _innerPositions) {
-      assert(position.minScrollExtent != null && position.pixels != null);
       if (position.pixels > position.minScrollExtent) {
         return true;
       }
@@ -485,14 +471,13 @@ class _NestedScrollCoordinator
   }
 
   void updateShadow() {
-    if (_onHasScrolledBodyChanged != null) _onHasScrolledBodyChanged();
+    _onHasScrolledBodyChanged();
   }
 
   ScrollDirection get userScrollDirection => _userScrollDirection;
   ScrollDirection _userScrollDirection = ScrollDirection.idle;
 
   void updateUserScrollDirection(ScrollDirection value) {
-    assert(value != null);
     if (userScrollDirection == value) return;
     _userScrollDirection = value;
     _outerPosition!.didUpdateScrollDirection(value);
@@ -597,9 +582,7 @@ class _NestedScrollCoordinator
       _NestedScrollPosition position, double velocity) {
     return position.createBallisticScrollActivity(
       position.physics.createBallisticSimulation(
-        velocity == 0
-            ? position as ScrollMetrics
-            : _getMetrics(position, velocity),
+        velocity == 0 ? position : _getMetrics(position, velocity),
         velocity,
       ),
       mode: _NestedBallisticScrollActivityMode.inner,
@@ -608,7 +591,6 @@ class _NestedScrollCoordinator
 
   _NestedScrollMetrics _getMetrics(
       _NestedScrollPosition innerPosition, double velocity) {
-    assert(innerPosition != null);
     double pixels, minRange, maxRange, correctionOffset, extra;
     if (innerPosition.pixels == innerPosition.minScrollExtent) {
       pixels = _outerPosition!.pixels.clamp(
@@ -664,7 +646,8 @@ class _NestedScrollCoordinator
           assert(velocity < 0.0);
           // growing
           extra = _outerPosition!.pixels -
-              (_outerPosition!.maxScrollExtent - _outerPosition!.minScrollExtent);
+              (_outerPosition!.maxScrollExtent -
+                  _outerPosition!.minScrollExtent);
         }
         assert(extra <= 0.0);
         minRange = _outerPosition!.minScrollExtent;
@@ -939,7 +922,7 @@ class _NestedScrollController extends ScrollController {
     // the position change notifications because those happen synchronously
     // during a frame, at a time where it's too late to call setState. Since the
     // result is usually animated, the lag incurred is no big deal.
-    SchedulerBinding.instance!.addPostFrameCallback((Duration timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((Duration timeStamp) {
       coordinator.updateShadow();
     });
   }
@@ -969,7 +952,6 @@ class _NestedScrollPosition extends ScrollPosition
           oldPosition: oldPosition,
           debugLabel: debugLabel,
         ) {
-    if (pixels == null && initialPixels != null) correctPixels(initialPixels);
     if (activity == null) goIdle();
     assert(activity != null);
     saveScrollOffset(); // in case we didn't restore but could, so that we don't restore it later
@@ -1115,7 +1097,6 @@ class _NestedScrollPosition extends ScrollPosition
     _NestedScrollMetrics? metrics,
   }) {
     if (simulation == null) return IdleScrollActivity(this);
-    assert(mode != null);
     switch (mode) {
       case _NestedBallisticScrollActivityMode.outer:
         assert(metrics != null);
@@ -1138,7 +1119,6 @@ class _NestedScrollPosition extends ScrollPosition
       case _NestedBallisticScrollActivityMode.independent:
         return BallisticScrollActivity(this, simulation, context.vsync);
     }
-    return null;
   }
 
   @override

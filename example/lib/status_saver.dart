@@ -134,5 +134,5 @@ class _ImageScreenState extends State<_ImageScreen> {
 }
 
 void showSnackbar(BuildContext context, String msg) {
-  Scaffold.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 }

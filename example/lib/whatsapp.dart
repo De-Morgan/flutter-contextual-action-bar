@@ -117,7 +117,7 @@ class Calls extends StatelessWidget {
                     data: call,
                     child: ListTile(
                       onTap: () {
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("$call"),
                         ));
                       },
@@ -173,7 +173,7 @@ class Chats extends StatelessWidget {
                     data: user,
                     child: ListTile(
                       onTap: () {
-                        Scaffold.of(context).showSnackBar(SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("$user"),
                         ));
                       },
@@ -284,7 +284,8 @@ List<Call> calls = _calls();
 List<Call> _calls() => _users().map((e) => Call(e)).toList();
 
 extension ContextExtenstion on BuildContext {
-  void showSnackBar(String message) => Scaffold.of(this).showSnackBar(SnackBar(
+  void showSnackBar(String message) =>
+      ScaffoldMessenger.of(this).showSnackBar(SnackBar(
         content: Text(message),
       ));
 }

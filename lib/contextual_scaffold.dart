@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/items_controller.dart';
-import 'widgets/contextual_action_bar.dart';
+import 'widgets/contextual_app_bar.dart';
 
 class ContextualScaffold<T> extends StatelessWidget {
   final bool extendBody;
@@ -62,12 +62,8 @@ class ContextualScaffold<T> extends StatelessWidget {
     this.extendBodyBehindAppBar = false,
     this.drawerScrimColor,
     this.drawerEdgeDragWidth,
-  })  : assert(primary != null),
-        assert(extendBody != null),
-        assert(contextualAppBar != null),
-        assert(extendBodyBehindAppBar != null),
-        assert(drawerDragStartBehavior != null),
-        super(key: key);
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ItemsController<T>>(

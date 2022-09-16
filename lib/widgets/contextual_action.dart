@@ -8,10 +8,11 @@ import '../typedef/handle_items.dart';
 class ContextualAction<T> extends StatelessWidget {
   final Widget child;
   final HandleItems<T> itemsHandler;
+
   const ContextualAction(
       {Key? key, required this.itemsHandler, required this.child})
-      : assert(child != null),
-        super(key: key);
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ItemsController<T>>(

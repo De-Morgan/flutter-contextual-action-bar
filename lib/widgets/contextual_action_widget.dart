@@ -27,7 +27,6 @@ class ContextualActionWidget<T> extends StatelessWidget {
       this.unselectedWidget,
       this.selectedColor})
       : assert(data != null),
-        assert(child != null),
         super(key: key);
 
   @override

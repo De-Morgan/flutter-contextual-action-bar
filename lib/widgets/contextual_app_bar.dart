@@ -30,12 +30,8 @@ class ContextualAppBar<T> extends StatefulWidget
     this.toolbarOpacity = 1.0,
     this.bottomOpacity = 1.0,
   })  : assert(elevation == null || elevation >= 0.0),
-        assert(primary != null),
-        assert(titleSpacing != null),
-        assert(toolbarOpacity != null),
-        assert(bottomOpacity != null),
         preferredSize = Size.fromHeight(
-            kToolbarHeight + (bottom?.preferredSize?.height ?? 0.0)),
+            kToolbarHeight + (bottom?.preferredSize.height ?? 0.0)),
         super(key: key);
 
   /// The primary widget displayed in the app bar.
@@ -174,14 +170,13 @@ class ContextualAppBar<T> extends StatefulWidget
 
   bool? _getEffectiveCenterTitle(ThemeData theme) {
     if (centerTitle != null) return centerTitle;
-    assert(theme.platform != null);
     switch (theme.platform) {
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
         return false;
       case TargetPlatform.iOS:
       case TargetPlatform.macOS:
-        return contextualActions == null || contextualActions.length < 2;
+        return contextualActions.length < 2;
       case TargetPlatform.linux:
         break;
       case TargetPlatform.windows:
@@ -240,8 +235,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
     }
 
     Widget? actions;
-    if (widget.contextualActions != null &&
-        widget.contextualActions.isNotEmpty) {
+    if (widget.contextualActions.isNotEmpty) {
       actions = Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -375,8 +369,7 @@ class _ContextualAppBarState<T> extends State<ContextualAppBar> {
 
 class _AppBarTitleBox extends SingleChildRenderObjectWidget {
   const _AppBarTitleBox({Key? key, required Widget child})
-      : assert(child != null),
-        super(key: key, child: child);
+      : super(key: key, child: child);
 
   @override
   _RenderAppBarTitleBox createRenderObject(BuildContext context) {
