@@ -17,4 +17,7 @@
 - added support for multiple `ContextualScaffold`
 
 ## 3.0.0 - July 17, 2021
-- Migrate to null safety
+- Migrated to null safety
+
+## 3.0.1 - Sep 16, 2022
+- Updated dependencies
