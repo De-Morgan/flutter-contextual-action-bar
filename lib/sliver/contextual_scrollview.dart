@@ -1095,6 +1095,7 @@ class _NestedScrollPosition extends ScrollPosition
     Simulation? simulation, {
     required _NestedBallisticScrollActivityMode mode,
     _NestedScrollMetrics? metrics,
+    bool shouldIgnorePointer = false,
   }) {
     if (simulation == null) return IdleScrollActivity(this);
     switch (mode) {
@@ -1108,6 +1109,7 @@ class _NestedScrollPosition extends ScrollPosition
           metrics,
           simulation,
           context.vsync,
+          shouldIgnorePointer,
         );
       case _NestedBallisticScrollActivityMode.inner:
         return _NestedInnerBallisticScrollActivity(
@@ -1115,9 +1117,11 @@ class _NestedScrollPosition extends ScrollPosition
           this,
           simulation,
           context.vsync,
+          shouldIgnorePointer,
         );
       case _NestedBallisticScrollActivityMode.independent:
-        return BallisticScrollActivity(this, simulation, context.vsync);
+        return BallisticScrollActivity(
+            this, simulation, context.vsync, shouldIgnorePointer);
     }
   }
 
@@ -1193,7 +1197,8 @@ class _NestedInnerBallisticScrollActivity extends BallisticScrollActivity {
     _NestedScrollPosition position,
     Simulation simulation,
     TickerProvider vsync,
-  ) : super(position, simulation, vsync);
+    bool shouldIgnorePointer,
+  ) : super(position, simulation, vsync, shouldIgnorePointer);
 
   final _NestedScrollCoordinator coordinator;
 
@@ -1229,9 +1234,10 @@ class _NestedOuterBallisticScrollActivity extends BallisticScrollActivity {
     this.metrics,
     Simulation simulation,
     TickerProvider vsync,
+    bool shouldIgnorePointer,
   )   : assert(metrics.minRange != metrics.maxRange),
         assert(metrics.maxRange > metrics.minRange),
-        super(position, simulation, vsync);
+        super(position, simulation, vsync, shouldIgnorePointer);
 
   final _NestedScrollCoordinator coordinator;
   final _NestedScrollMetrics metrics;
