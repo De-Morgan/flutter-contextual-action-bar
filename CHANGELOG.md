@@ -21,3 +21,6 @@
 
 ## 3.0.1 - Sep 16, 2022
 - Updated dependencies
+
+## 3.0.2 - Apr 30, 2023
+- Resolve contextual_scrollview issue
