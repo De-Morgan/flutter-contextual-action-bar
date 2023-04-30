@@ -1,7 +1,7 @@
 name: contextualactionbar
 description: A Contextual Action Bar(CAB) workaround for flutter.
   CAB is a top app bar that replace the app app bar and provide contextual actions to selected items
-version: 3.0.1
+version: 3.0.2
 homepage: https://github.com/De-Morgan/flutter-contextual-action-bar
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.3
+  provider: ^6.0.5
 
 
 dev_dependencies:
