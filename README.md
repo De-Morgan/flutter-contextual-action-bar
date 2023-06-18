@@ -13,7 +13,7 @@ Until CAB is natively supported, this package should provide you with an elegant
 
 ## How it works
 
-- `ContextualScaffold` or `ContextualScrollView`(for slivers)
+- `ContextualScaffold`
 - `ContextualAppBar`
 - `ContextualAction`
 - `ContextualActionWidget`
@@ -32,21 +32,6 @@ ContextualScaffold<?>(
     )
  ```
 You can provide multiple `ContextualScaffold` as needed
-
- 
- ## `ContextualScrollView<?>`
- 
- The `ContextualScrollView<?>` is similar to the normal `NestedScrollview` except that it also takes a required `contextualAppBar`.
- 
- ```
-  ContextualScrollView<?>(
-      contextualAppBar: ContextualAppBar(),
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) => [],
-      body: Body(),
-   )
-    
-   ```
-The ContextualScrollView is used to add first class support for silvers although `ContextualScaffold` can also be used with `NestedScrollview` check the `WhatsApp` example for complete usage.
 
 
 ## `ContextualAppBar<?>`
@@ -81,7 +66,7 @@ ContextualAction(
 
 ## `ContextualActionWidget<?>`
 
-You can use the `ContextualActionWidget` anywhere in the `ContextualActionScaffold` or `ContextualScrollView<?>` `body` to notify  `ContextualActionScaffold` or `ContextualScrollView<?>` respectively, that an item have been selected in order to show the `ContextualAppBar`. 
+You can use the `ContextualActionWidget` anywhere in the `ContextualActionScaffold` body to notify `ContextualActionScaffold` that an item have been selected in order to show the `ContextualAppBar`. 
 
 ```
    ContextualActionWidget(
