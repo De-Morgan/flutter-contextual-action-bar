@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/items_controller.dart';
+part of widgets;
 
 class ContextualActionWidget<T> extends StatelessWidget {
   final T data;

@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
+part of contextualactionbar;
 
 class ItemsController<T> extends ChangeNotifier {
   final Set<T> _items = {};

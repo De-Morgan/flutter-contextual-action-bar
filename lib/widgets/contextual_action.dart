@@ -1,9 +1,4 @@
-import 'package:contextualactionbar/actions/action_mode.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/items_controller.dart';
-import '../typedef/handle_items.dart';
+part of widgets;
 
 class ContextualAction<T> extends StatelessWidget {
   final Widget child;

@@ -1,12 +1,4 @@
-import 'package:contextualactionbar/actions/action_mode.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/items_controller.dart';
-import '../typedef/counter_builder.dart';
-import 'contextual_action.dart';
+part of widgets;
 
 class ContextualAppBar<T> extends StatefulWidget
     implements PreferredSizeWidget {

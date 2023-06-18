@@ -1,2 +1,6 @@
-export 'handle_items.dart';
-export 'counter_builder.dart';
+library typedef;
+
+import 'package:flutter/material.dart';
+
+part 'counter_builder.dart';
+part 'handle_items.dart';

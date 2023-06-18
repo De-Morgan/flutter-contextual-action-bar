@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../controller/items_controller.dart';
+part of contextualactionbar;
 
 class ActionMode {
   ///Add an item of type T to the action mode

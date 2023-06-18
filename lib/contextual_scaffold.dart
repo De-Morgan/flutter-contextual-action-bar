@@ -1,9 +1,4 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'controller/items_controller.dart';
-import 'widgets/contextual_app_bar.dart';
+part of contextualactionbar;
 
 class ContextualScaffold<T> extends StatelessWidget {
   final bool extendBody;
