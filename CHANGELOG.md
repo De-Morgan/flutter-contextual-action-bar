@@ -24,3 +24,6 @@
 
 ## 3.0.2 - Apr 30, 2023
 - Resolve contextual_scrollview issue
+
+## 3.1.0 - Jun 18, 2023
+- Removed support for contextual_scrollview, use ContextualScaffold instead. 
