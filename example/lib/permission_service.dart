@@ -13,6 +13,7 @@ class StoragePermissionService {
     final PermissionStatus permissionStatus = await Permission.storage.status;
     switch (permissionStatus) {
       case PermissionStatus.limited:
+      case PermissionStatus.provisional:
       case PermissionStatus.denied:
         final PermissionStatus requestedStatus =
             await Permission.storage.request();
